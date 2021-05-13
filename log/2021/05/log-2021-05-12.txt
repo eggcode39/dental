@@ -1,0 +1,6 @@
+2021-05-12 18:58:40[UTC -5] [ip] ::1 [location] Paciente|registrar_paciente [text] SQLSTATE[42S02]: Base table or view not found: 1146 Table 'bd_regasistencia.paciente' doesn't exist
+2021-05-12 19:16:04[UTC -5] [ip] ::1 [location] Excepcion No Manejada [text] [LEVEL]: 8 IN C:\xampp\htdocs\dental\app\models\Cita.php: 24[MESSAGGE]Undefined property: Cita::$cita_estado
+
+2021-05-12 19:16:04[UTC -5] [ip] ::1 [location] Cita|registrar_cita [text] SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'cita_estado' cannot be null
+2021-05-12 23:12:08[UTC -5] [ip] ::1 [location] Paciente|buscar_paciente_dni [text] SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
+2021-05-12 23:12:13[UTC -5] [ip] ::1 [location] Paciente|buscar_paciente_dni [text] SQLSTATE[HY093]: Invalid parameter number: no parameters were bound
