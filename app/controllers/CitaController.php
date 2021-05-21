@@ -68,7 +68,7 @@ class CitaController{
             //If All OK, the message does not change
             $message = "We did it. Your awesome... and beatiful";
             if(isset($_POST['fecha'])){
-                $datos = $this->cita->listar_citas_dias($_POST['fecha']);
+                $datos = $this->cita->listar_citas_dias_todo($_POST['fecha']);
                 $result = 1;
             } else {
                 $datos = [];
