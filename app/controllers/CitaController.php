@@ -63,6 +63,29 @@ class CitaController{
         echo json_encode($data);
     }
 
+    public function listar_citas_dia_todo(){
+        try{
+            //If All OK, the message does not change
+            $message = "We did it. Your awesome... and beatiful";
+            if(isset($_POST['fecha'])){
+                $datos = $this->cita->listar_citas_dias($_POST['fecha']);
+                $result = 1;
+            } else {
+                $datos = [];
+                $result = 6;
+                $message = "Code 6: Datos No Recibidos";
+            }
+        } catch (Exception $e){
+            $this->log->insert($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $datos = [];
+            $result = 2;
+            $message = "Code 2: General Error";
+        }
+        $response = array("code" => $result,"message" => $message);
+        $data = array("result" => $response, "data" => $datos);
+        echo json_encode($data);
+    }
+
     public function atender_cita(){
         try{
             $model = new Cita();

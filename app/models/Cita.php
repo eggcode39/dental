@@ -60,4 +60,17 @@ class Cita{
         }
         return $result;
     }
+
+    public function listar_citas_dias_todo($fecha){
+        try{
+            $sql = "select * from cita c inner join paciente p on c.id_paciente = p.id_paciente where c.cita_fecha = ?";
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute([$fecha]);
+            $result = $stm->fetchAll();
+        } catch (Exception $e){
+            $this->log->insert($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = [];
+        }
+        return $result;
+    }
 }

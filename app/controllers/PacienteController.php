@@ -21,7 +21,7 @@ class PacienteController{
             $model = new Paciente();
             //If All OK, the message does not change
             $message = "Code 1: Ok, Code 2: Error al crear Usuario, Code 3: Paciente con DNI ya existente, Code 4: DNI no tiene 8 caracteres";
-            if(isset($_POST['paciente_nombre']) && isset($_POST['paciente_apellido']) && isset($_POST['paciente_dni'])){
+            if(isset($_POST['paciente_nombre']) && isset($_POST['paciente_apellido']) && isset($_POST['paciente_dni']) && isset($_POST['paciente_telefono']) && isset($_POST['paciente_correo'])){
                 if(strlen($_POST['paciente_dni']) == 8){
                     $paciente = $this->paciente->buscar_paciente_dni($_POST['paciente_dni']);
                     if(isset($paciente->paciente_dni)){
@@ -30,6 +30,14 @@ class PacienteController{
                         $model->paciente_nombre = $_POST['paciente_nombre'];
                         $model->paciente_apellido = $_POST['paciente_apellido'];
                         $model->paciente_dni = $_POST['paciente_dni'];
+                        $model->paciente_telefono = $_POST['paciente_telefono'];
+                        $model->paciente_correo = $_POST['paciente_correo'];
+                        if(isset($_POST['paciente_imagen_url']) && !empty($_POST['paciente_imagen_url'])){
+                            $model->paciente_imagen_url = $_POST['paciente_imagen_url'];
+                        } else {
+                            $model->paciente_imagen_url = "https://guabba.com/dental/media/user.jpg";
+                        }
+
                         $result = $this->paciente->registrar_paciente($model);
                     }
                 } else {
@@ -94,6 +102,28 @@ class PacienteController{
             $message = "We did it. Your awesome... and beatiful";
             if(isset($_POST['id_paciente'])){
                 $datos = $this->paciente->listar_citas_atendidas_paciente($_POST['id_paciente']);
+                $result = 1;
+            } else {
+                $result = 6;
+                $message = "Code 6: Datos No Recibidos";
+            }
+        } catch (Exception $e){
+            $this->log->insert($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $datos = [];
+            $result = 2;
+            $message = "Code 2: General Error";
+        }
+        $response = array("code" => $result,"message" => $message);
+        $data = array("result" => $response, "data" => $datos);
+        echo json_encode($data);
+    }
+
+    public function listar_citas_paciente_todo(){
+        try{
+            //If All OK, the message does not change
+            $message = "We did it. Your awesome... and beatiful";
+            if(isset($_POST['id_paciente'])){
+                $datos = $this->paciente->listar_citas_paciente_todo($_POST['id_paciente']);
                 $result = 1;
             } else {
                 $result = 6;
